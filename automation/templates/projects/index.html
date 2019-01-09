@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+ 
+{% if project %}
+    <div class="row d-flex flex-row justify-content-between align-items-center">
+        <h1 class="m-2 pl-3">{{project}}</h1>
+        {% if project.project_created_date %}<h5 class="m-2 pr-5 existing-project">Created: {{project.project_created_date}}</h5>{% endif %}
+    </div>
+    <hr class="mt-0 mb-4">
+
+    <div class="row align-items-center">
+        <div class="col-xs-8">
+            <ul class="ml-5 p-0"> 
+                <li><span class="label">Tester:</span> {{ project.project_tester_name}}</li>
+                <li><span class="label">Contact:</span> {{ project.project_client_contact_name}}</li>
+                <li><span class="label">Targets: </span>{{ project.project_targets}}</li>
+            </ul>
+            <table style="margin-left: 0">
+                <tr><th><span class="label">Project Qualys File: </span></th>
+                    {% if project.project_qualys_file %}
+                       <td> <a href="/automation/uploads/{{ project.project_qualys_file }}">{{ project.project_qualys_file.name }}</a> </td>
+                    {% else %}
+                       <td> No file uploaded </td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    {% if project.project_nessus_file %}
+                    <th><span class="label">Project Nessus FILE:</span></th><td> <a href="/automation/uploads/{{ project.project_nessus_file }}">{{ project.project_nessus_file.name }}</a><a href="/automation/uploads/{{ project.project_nessus_file }}/parse">Parse</a></a> </td>
+                    {% else %}
+                    <th><span class="label">Project Nessus FILE:</span></th><td>No file uploaded</td>
+
+                    {% endif %}
+                </tr>
+                <th><span class="label">LazyT progress:</span></th> <td>{{ project.project_lazyt_progress}}%</td>
+            </table>        
+         </div>
+
+    </div>
+
+    <hr class="mt-0 mb-4">
+    <div class="col-xs-4 align-items-center">
+        <button class="btn btn-success">View Results</button>
+        <button class="btn btn-success">Report</button>
+        <button class="btn btn-success">Export</button>
+    </div>
+    
+
+
+{% else %}
+    <p>No project with that id.</p>
+{% endif %}
+{% endblock %}
