@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+ 
+{% if fb_rules %}
+
+<table class="rules vulns">
+        <tr><th>ID</th><th>FB Name</th><th>Nessus Plugn IDs</th><th>Qualys Plugin IDs</th></tr>
+    {% for rule in fb_rules %} 
+        <tr class="report_{{vuln.vulnerability_reporting}}">
+            <td>{{rule.id}}</td>
+            <td>{{rule.rule_FB_name}}</td>
+            <td>{{rule.rule_nessus_plugin_ids}}</td>
+            <td>{{rule.rule_qualys_plugin_ids}}</td>
+        </tr>
+    {% endfor %}
+</table>    
+
+
+{% else %}
+    <p>No rules created</p>
+{% endif %}
+{% endblock %}

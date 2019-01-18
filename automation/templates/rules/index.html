@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<p class="text-center"><a class="btn btn-success" href="/automation/uploads/{{rules_path}}">Download rules file</a> <a class="btn btn-success" href="/automation/rules/{{rules_id}}/generate">Generate Project Rules</a> </p>
+
+ 
+{% if rules %}
+
+<table class="rules vulns">
+        <tr><th>Source</th><th>Source Name</th><th>FB Name</th><th>Plugin ID</th></tr>
+    {% for rule in rules %} 
+        <tr class="report_{{vuln.vulnerability_reporting}}">
+            <td>{{rule.rule_source}}</td>
+            <td>{{rule.rule_source_name}}</td>
+            <td>{{rule.rule_FB_name}}</td>
+            <td>{{rule.rule_plugin_id}}</td>
+        </tr>
+    {% endfor %}
+</table>    
+
+
+{% else %}
+    <p>{{pivot}}</p>
+{% endif %}
+{% endblock %}

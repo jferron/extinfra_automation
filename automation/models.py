@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.functions import Concat
 from django.forms import ModelForm
 from datetime import datetime
+from django.contrib.postgres.fields import ArrayField
 
 
 class Project(models.Model):
@@ -52,6 +53,37 @@ class Vulnerability(models.Model):
     vulnerability_source = models.TextField(null=True)
     vulnerability_source_id = models.PositiveIntegerField(null=True)
     vulnerability_source_name = models.TextField(null=True)
-    vulnerability_reporting = models.BooleanField(null=True, default=1)
+    vulnerability_reporting = models.CharField(null=True, max_length=500, default="1_maybe")
+    vulnerability_FB_name = models.CharField(max_length=500, blank=True)
     def __str__(self):
         return self.vulnerability_Dradis_ID
+
+class Rules(models.Model):
+    rules_file = models.FileField( blank=True, null=True)
+    rules_created_date = models.DateTimeField(auto_now_add=True, null=True)
+    def __str__(self):
+        return self.rules_created_date
+
+class RulesForm(ModelForm):
+    class Meta:
+            model = Rules
+            fields = ["rules_file"]
+
+class Rule(models.Model):
+    rule_rules_id = models.PositiveIntegerField(null=True)
+    rule_FB_name = models.CharField(max_length=500)
+    rule_FB_id = models.PositiveIntegerField(null=True)
+    rule_plugin_id = models.PositiveIntegerField(null=True)
+    rule_source = models.CharField(max_length=100)
+    rule_source_name = models.CharField(max_length=500, null=True)
+    rule_created_date = models.DateTimeField(auto_now_add=True, null=True)
+    def __str__(self):
+        return self.rule_FB_name
+
+class FBRule(models.Model):
+    rule_FB_name = models.CharField(max_length=500)
+    rule_nessus_plugin_ids = ArrayField(base_field=models.IntegerField(), default=[])
+    rule_qualys_plugin_ids = ArrayField(base_field=models.IntegerField(), default=[])
+    rule_created_date = models.DateTimeField(auto_now_add=True, null=True)
+    def __str__(self):
+        return self.rule_FB_name

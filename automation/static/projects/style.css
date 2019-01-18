@@ -63,11 +63,16 @@ ul li.active{
     padding: 10px 40px;
 }
 
-.report_True {
+.report_0_yes {
     background: #ddf6dd;
 }
-.report_False {
-    background:#e7e7e7;
+
+.report_1_maybe {
+    background:#f3f3db;
+}
+
+.report_false, .report_2_no {
+    background:#dedede;
 }
 
 table.vulns {

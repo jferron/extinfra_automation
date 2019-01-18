@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+ 
+{% if reported_vulns %}
+
+<table class="rules vulns">
+        <tr><th>Vulnerability</th><th>Target</th><th>Port</th><th>Output</th></tr>
+    {% for vuln in reported_vulns %} 
+        <tr class="report_{{vuln.vulnerability_reporting}}">
+            <td>{{vuln.vulnerability_FB_name}}</td>
+            <td>{{vuln.vulnerability_target}}</td>
+            <td>{{vuln.vulnerability_ports}}/{{vuln.vulnerability_protocol}}</td>
+            <td>{{vuln.vulnerability_outputs}}</td>
+        </tr>
+    {% endfor %}
+</table>    
+
+
+{% else %}
+    <p>{{pivot}}</p>
+{% endif %}
+{% endblock %}
